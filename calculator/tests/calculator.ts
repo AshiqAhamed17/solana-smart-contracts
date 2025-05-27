@@ -14,7 +14,7 @@ describe("calculator", () => {
   it("Is initialized!", async () => {
     // Add your test here.
     const tx = await program.methods
-    .init(7)
+    .init(7) //
     .accounts({
       signer: anchor.getProvider().wallet.publicKey,
       account: newAccount.publicKey
@@ -25,6 +25,7 @@ describe("calculator", () => {
     console.log("Your transaction: ", tx);
 
     const account = await program.account.dataShape.fetch(newAccount.publicKey);
+    console.log(account.num)
     assert.strictEqual(account.num, 7);
   });
 
@@ -41,7 +42,26 @@ it("Is Double!", async () => {
     console.log("Your transaction: ", tx);
 
     const account = await program.account.dataShape.fetch(newAccount.publicKey);
+    console.log(account.num)
     assert.strictEqual(account.num, 14);
+
+  });
+
+  it("Is Double!", async () => {
+    // Add your test here.
+    const tx = await program.methods
+    .add(6)
+    .accounts({
+      signer: anchor.getProvider().wallet.publicKey,
+      account: newAccount.publicKey
+    })
+    .rpc();
+
+    console.log("Your transaction: ", tx);
+
+    const account = await program.account.dataShape.fetch(newAccount.publicKey);
+    console.log(account.num);
+    assert.strictEqual(account.num, 20);
 
   });
 

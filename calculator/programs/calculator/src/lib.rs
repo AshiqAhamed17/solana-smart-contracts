@@ -19,7 +19,7 @@ pub mod calculator {
     }
 
     pub fn add(ctx: Context<Add> ,num: u32) -> Result<()> {
-        ctx.accounts.account.num = ctx.accounts.account.num * num;
+        ctx.accounts.account.num = ctx.accounts.account.num + num;
         Ok(())
     }
 
