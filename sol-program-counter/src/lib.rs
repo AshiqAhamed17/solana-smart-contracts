@@ -8,6 +8,8 @@ use solana_program::{
 };
 
 #[derive(BorshSerialize, BorshDeserialize)]
+
+// Like Function declearation , two function Increment and Decrement. which will be implemented in the match case of InstructionType
 enum InstructionType {
     Increment(u32),
     Decrement(u32)
@@ -30,10 +32,14 @@ pub fn counter_contract (
     let mut counter_data = Counter::try_from_slice(&acc.data.borrow())?;
 
     match instruction_type {
+
+        // Think of it like Increment function
         InstructionType::Increment(value) => {
             msg!("Increment!!");
             counter_data.count += value;
         },
+
+        // Think of it like Decrement function
         InstructionType::Decrement(value) => {
             msg!("Decrement!!");
             counter_data.count -= value;
@@ -41,7 +47,7 @@ pub fn counter_contract (
     }
 
     counter_data.serialize(&mut *acc.data.borrow_mut())?;
-    msg!("COntract succeded!");
+    msg!("Contract successfully executed!");
 
     Ok(())
 
